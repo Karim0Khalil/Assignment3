@@ -71,15 +71,19 @@ int main()
    count = 0;
    pthread_t t[threadcount];
    start_thread = clock();
-   for (long i = 0; i < threadcount; ++i)
+   for (int i = 0; i < 100; i++)
    {
-      pthread_create(&t[i], NULL, &ThreadCount1s, (void *)i);
+      for (long i = 0; i < threadcount; ++i)
+      {
+         pthread_create(&t[i], NULL, &ThreadCount1s, (void *)i);
+      }
+
+      for (long i = 0; i < threadcount; ++i)
+      {
+         pthread_join(t[i], NULL);
+      }
    }
 
-   for (long i = 0; i < threadcount; ++i)
-   {
-      pthread_join(t[i], NULL);
-   }
    end_thread = clock();
    time_thread = ((double)(end_thread - start_thread)) / CLOCKS_PER_SEC * 1.0;
    printf("\nTotal time taken using threads = %f", time_thread);
