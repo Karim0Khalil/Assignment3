@@ -91,15 +91,18 @@ int main()
     pthread_t t[threadcount];
     start_thread = clock();
     printf("\nThreadcount: %ld", threadcount);
-    for (long i = 0; i < threadcount; i++)
+    for (int i = 0; i < 100; i++)
     {
-        pthread_create(&(t[i]), NULL, &ThreadCount1s, (void *)i);
-        // printf("\n%d",i);
-    }
+        for (long i = 0; i < threadcount; i++)
+        {
+            pthread_create(&(t[i]), NULL, &ThreadCount1s, (void *)i);
+            // printf("\n%d",i);
+        }
 
-    for (long i = 1; i < threadcount; i++)
-    {
-        pthread_join(t[i], NULL);
+        for (long i = 1; i < threadcount; i++)
+        {
+            pthread_join(t[i], NULL);
+        }
     }
 
     end_thread = clock();
